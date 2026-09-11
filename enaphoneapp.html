@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+               maximum-scale=1.0, user-scalable=no">
+
+<title>For You ❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  color: white;
+  background: #09030a;
+  overflow-x: hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 15%, #ff477e33, transparent 30%),
+    radial-gradient(circle at 90% 40%, #b52cff22, transparent 35%),
+    radial-gradient(circle at 40% 100%, #ff164f22, transparent 35%),
+    #09030a;
+  z-index: -5;
+}
+
+.glow {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: .45;
+  animation: moveGlow 12s infinite alternate ease-in-out;
+}
+
+.glow.one {
+  background: #ff286f;
+  top: -100px;
+  left: -100px;
+}
+
+.glow.two {
+  background: #8d2cff;
+  right: -120px;
+  top: 35%;
+  animation-delay: 3s;
+}
+
+.glow.three {
+  background: #ff174f;
+  bottom: -150px;
+  left: 20%;
+  animation-delay: 6s;
+}
+
+@keyframes moveGlow {
+  from { transform: translate(0,0) scale(1); }
+  to { transform: translate(60px,40px) scale(1.3); }
+}
+
+/* =========================
+   APP
+========================= */
+
+.app {
+  width: min(100%, 480px);
+  min-height: 100vh;
+  margin: auto;
+  padding: 20px 18px 40px;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 4px;
+  position: relative;
+  z-index: 10;
+}
+
+.logo {
+  font-family: "DM Serif Display", serif;
+  font-size: 22px;
+}
+
+.music {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.15);
+  font-size: 17px;
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress {
+  display: flex;
+  gap: 5px;
+  margin: 18px 2px 25px;
+}
+
+.progress span {
+  height: 3px;
+  flex: 1;
+  border-radius: 10px;
+  background: rgba(255,255,255,.15);
+  transition: .5s;
+}
+
+.progress span.active {
+  background: linear-gradient(90deg,#ff477e,#ff9bb8);
+  box-shadow: 0 0 10px #ff477e;
+}
+
+/* =========================
+   SCREENS
+========================= */
+
+.screen {
+  display: none;
+  min-height: calc(100vh - 120px);
+  animation: screenIn .7s ease;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes screenIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.mini {
+  color: #ff9ab5;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.heart-logo {
+  width: 115px;
+  height: 115px;
+  margin: 0 auto 28px;
+  border-radius: 40px;
+  display: grid;
+  place-items: center;
+  font-size: 52px;
+  background:
+    linear-gradient(145deg,#ff477e,#8d1642);
+  box-shadow:
+    0 20px 70px #ff246155,
+    inset 0 1px 1px #ffffff55;
+  transform: rotate(-5deg);
+  animation: heartbeat 2s infinite;
+}
+
+@keyframes heartbeat {
+  0%,100% { transform: rotate(-5deg) scale(1); }
+  10% { transform: rotate(-5deg) scale(1.08); }
+  20% { transform: rotate(-5deg) scale(1); }
+  30% { transform: rotate(-5deg) scale(1.05); }
+}
+
+h1 {
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(48px, 15vw, 72px);
+  line-height: .95;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+}
+
+.gradient-text {
+  background: linear-gradient(
+    120deg,
+    #fff,
+    #ff9fba,
+    #fff
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.description {
+  color: #cdb8c1;
+  font-size: 14px;
+  line-height: 1.8;
+  max-width: 330px;
+  margin: auto;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.primary {
+  width: 100%;
+  border: 0;
+  color: white;
+  padding: 17px 20px;
+  border-radius: 18px;
+  margin-top: 30px;
+  font-size: 15px;
+  font-weight: 700;
+  background:
+    linear-gradient(135deg,#ff477e,#e9185d);
+  box-shadow:
+    0 15px 35px #ff1e5c33,
+    inset 0 1px #ffffff44;
+  transition: .25s;
+}
+
+.primary:active {
+  transform: scale(.96);
+}
+
+.secondary {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.12);
+  color: #fff;
+  padding: 16px 20px;
+  border-radius: 18px;
+  margin-top: 12px;
+  background: rgba(255,255,255,.06);
+  font-weight: 600;
+}
+
+/* =========================
+   STORY
+========================= */
+
+.story-number {
+  color: #ff668d;
+  font-size: 11px;
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.story-title {
+  font-family: "DM Serif Display", serif;
+  font-size: 42px;
+  line-height: 1.05;
+  margin-bottom: 22px;
+}
+
+.story-text {
+  color: #d4c1c8;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.story-image {
+  height: 300px;
+  border-radius: 28px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,60,115,.45),
+      rgba(80,15,65,.4)
+    );
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 25px 70px rgba(0,0,0,.4);
+}
+
+.story-image::before {
+  content: "♡";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 100px;
+  color: #ffffff22;
+}
+
+.story-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, #ff7b9c55, transparent 25%),
+    radial-gradient(circle at 80% 70%, #9e42ff44, transparent 30%);
+}
+
+/* =========================
+   QUESTION
+========================= */
+
+.question-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.question-label {
+  color: #ff86a5;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.question {
+  font-family: "DM Serif Display", serif;
+  font-size: 38px;
+  line-height: 1.1;
+  margin-bottom: 15px;
+}
+
+.question-hint {
+  color: #a9959d;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.answer-btn {
+  width: 100%;
+  padding: 18px;
+  border-radius: 18px;
+  margin-top: 10px;
+  color: white;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  transition: .25s;
+}
+
+.answer-btn:active {
+  transform: scale(.97);
+  background: #ff477e22;
+  border-color: #ff477e66;
+}
+
+.answer-btn span {
+  float: right;
+  color: #ff7697;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final-screen {
+  text-align: center;
+  justify-content: center;
+}
+
+.big-heart {
+  font-size: 80px;
+  margin-bottom: 20px;
+  animation: heartbeat 1.8s infinite;
+}
+
+.final-title {
+  font-family: "DM Serif Display", serif;
+  font-size: 52px;
+  line-height: .98;
+  margin-bottom: 20px;
+}
+
+.final-text {
+  color: #d1bdc5;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.signature {
+  font-family: "DM Serif Display", serif;
+  color: #ff8eaa;
+  font-size: 27px;
+  margin-top: 28px;
+}
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+.hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 20;
+}
+
+.heart {
+  position: absolute;
+  bottom: -40px;
+  animation: floatUp linear forwards;
+  opacity: 0;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(.5) rotate(0);
+  }
+
+  15% {
+    opacity: .8;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translateY(-110vh)
+      translateX(var(--move))
+      scale(1.3)
+      rotate(360deg);
+  }
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media(min-width:700px) {
+  body {
+    display: grid;
+    place-items: center;
+  }
+
+  .app {
+    min-height: 850px;
+    height: 92vh;
+    max-height: 950px;
+    padding: 25px 30px 35px;
+    border-radius: 35px;
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 40px 120px #000;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background">
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+  <div class="glow three"></div>
+</div>
+
+<div class="hearts" id="hearts"></div>
+
+<div class="app">
+
+  <div class="topbar">
+    <div class="logo">Enaiat ♡</div>
+    <div class="music" onclick="this.innerText='♫'">♪</div>
+  </div>
+
+  <div class="progress">
+    <span class="active"></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+
+  <!-- SCREEN 1 -->
+
+  <section class="screen active" id="screen1">
+
+    <div class="hero">
+
+      <div class="heart-logo">❤️</div>
+
+      <div class="mini">A little something for you</div>
+
+      <h1>
+        Maybe<br>
+        <span class="gradient-text">It's Us.</span>
+      </h1>
+
+      <p class="description">
+        Not every beautiful story starts with
+        fireworks. Sometimes it starts with
+        two people simply wanting to know
+        each other a little more.
+      </p>
+
+      <button class="primary" onclick="goTo(2)">
+        Begin the story ✨
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- SCREEN 2 -->
+
+  <section class="screen" id="screen2">
+
+    <div class="story-image"></div>
+
+    <div class="story-number">CHAPTER 01</div>
+
+    <h2 class="story-title">
+      It started with a little curiosity.
+    </h2>
+
+    <p class="story-text">
+      Enaiat didn't know exactly where this
+      story would go.
+      <br><br>
+      Maybe it would become a beautiful
+      memory. Maybe it would become
+      something more.
+      <br><br>
+      But one thing felt worth discovering...
+      <br><br>
+      <b>Who are you, really?</b> ❤️
+    </p>
+
+    <button class="primary" onclick="goTo(3)">
+      Keep reading →
+    </button>
+
+  </section>
+
+
+  <!-- SCREEN 3 -->
+
+  <section class="screen" id="screen3">
+
+    <div class="story-image"></div>
+
+    <div class="story-number">CHAPTER 02</div>
+
+    <h2 class="story-title">
+      Then came the little moments.
+    </h2>
+
+    <p class="story-text">
+      A message that made you smile.
+      <br><br>
+      A conversation that lasted longer
+      than expected.
+      <br><br>
+      A moment where you suddenly realized
+      that talking to someone could feel
+      surprisingly easy.
+      <br><br>
+      Sometimes...
+      <b>that's how something special begins.</b>
+    </p>
+
+    <button class="primary" onclick="goTo(4)">
+      I have questions for you 💕
+    </button>
+
+  </section>
+
+
+  <!-- SCREEN 4 -->
+
+  <section class="screen" id="screen4">
+
+    <div class="question-wrap">
+
+      <div class="question-label">
+        Question 01 / 03
+      </div>
+
+      <h2 class="question">
+        What makes you notice someone first?
+      </h2>
+
+      <p class="question-hint">
+        There is no wrong answer. I'm just curious
+        what makes your heart pay attention. 👀
+      </p>
+
+      <button class="answer-btn" onclick="nextQuestion()">
+        Their smile 😊 <span>♡</span>
+      </button>
+
+      <button class="answer-btn" onclick="nextQuestion()">
+        Their personality ✨ <span>♡</span>
+      </button>
+
+      <button class="answer-btn" onclick="nextQuestion()">
+        The way they treat people 🤍 <span>♡</span>
+      </button>
+
+      <button class="answer-btn" onclick="nextQuestion()">
+        Something I can't explain 👀 <span>♡</span>
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- SCREEN 5 -->
+
+  <section class="screen final-screen" id="screen5">
+
+    <div class="big-heart">❤️</div>
+
+    <div class="mini">
+      One last thing...
+    </div>
+
+    <h2 class="final-title">
+      Maybe we should<br>
+      make a memory.
+    </h2>
+
+    <p class="final-text">
+      No pressure. No expectations.
+      <br><br>
+      Just two people,
+      one conversation,
+      and the possibility of a really
+      beautiful story.
+    </p>
+
+    <button class="primary" onclick="reveal()">
+      I'm curious too 💗
+    </button>
+
+    <div id="revealText" style="display:none">
+
+      <p class="final-text" style="margin-top:25px">
+        Then let's see where the story takes us. ✨
+      </p>
+
+      <div class="signature">
+        — Enaiat
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<script>
+
+let current = 1;
+
+function goTo(number) {
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen => screen.classList.remove("active"));
+
+  document
+    .getElementById("screen" + number)
+    .classList.add("active");
+
+  current = number;
+
+  updateProgress();
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+  if(number === 5) {
+    heartBurst();
+  }
+}
+
+function updateProgress() {
+
+  document
+    .querySelectorAll(".progress span")
+    .forEach((bar, index) => {
+
+      bar.classList.toggle(
+        "active",
+        index < current
+      );
+
+    });
+}
+
+
+/* Questions */
+
+let questionNumber = 1;
+
+function nextQuestion() {
+
+  if(questionNumber === 1) {
+
+    questionNumber = 2;
+
+    document.querySelector("#screen4 .question-label")
+      .innerText = "Question 02 / 03";
+
+    document.querySelector("#screen4 .question")
+      .innerText =
+      "What's your idea of a perfect evening with someone special? 🌙";
+
+    document.querySelector("#screen4 .question-hint")
+      .innerText =
+      "Imagine the kind of evening you'd actually remember.";
+
+    document.querySelectorAll(".answer-btn")[0].innerHTML =
+      "A long conversation 🌙 <span>♡</span>";
+
+    document.querySelectorAll(".answer-btn")[1].innerHTML =
+      "Laughing until our stomachs hurt 😂 <span>♡</span>";
+
+    document.querySelectorAll(".answer-btn")[2].innerHTML =
+      "A quiet night together ✨ <span>♡</span>";
+
+    document.querySelectorAll(".answer-btn")[3].innerHTML =
+      "Something spontaneous 👀 <span>♡</span>";
+
+  }
+
+  else if(questionNumber === 2) {
+
+    questionNumber = 3;
+
+    document.querySelector("#screen4 .question-label")
+      .innerText = "Question 03 / 03";
+
+    document.querySelector("#screen4 .question")
+      .innerText =
+      "Do you believe the best connections happen unexpectedly?";
+
+    document.querySelector("#screen4 .question-hint")
+      .innerText =
+      "Sometimes you don't plan a story. You just find yourself inside one.";
+
+    document.querySelectorAll(".answer-btn")[0].innerHTML =
+      "Definitely ❤️ <span>♡</span>";
+
+    document.querySelectorAll(".answer-btn")[1].innerHTML =
+      "Maybe... 👀 <span>♡</span>";
+
+    document.querySelectorAll(".answer-btn")[2].innerHTML =
+      "I want to believe that ✨ <span>♡</span>";
+
+    document.querySelectorAll(".answer-btn")[3].innerHTML =
+      "Depends on the person 💕 <span>♡</span>";
+
+  }
+
+  else {
+
+    goTo(5);
+
+  }
+}
+
+
+/* Final reveal */
+
+function reveal() {
+
+  document.getElementById("revealText").style.display = "block";
+
+  heartBurst();
+
+}
+
+
+/* Floating hearts */
+
+function createHeart() {
+
+  const heart = document.createElement("div");
+
+  heart.className = "heart";
+
+  const symbols = [
+    "❤️",
+    "💕",
+    "💗",
+    "💖",
+    "✨",
+    "♡"
+  ];
+
+  heart.innerText =
+    symbols[Math.floor(Math.random() * symbols.length)];
+
+  heart.style.left =
+    Math.random() * 100 + "%";
+
+  heart.style.fontSize =
+    (12 + Math.random() * 20) + "px";
+
+  heart.style.setProperty(
+    "--move",
+    ((Math.random() - .5) * 180) + "px"
+  );
+
+  heart.style.animationDuration =
+    (5 + Math.random() * 7) + "s";
+
+  document.getElementById("hearts")
+    .appendChild(heart);
+
+  setTimeout(
+    () => heart.remove(),
+    13000
+  );
+}
+
+setInterval(createHeart, 700);
+
+
+/* Heart explosion */
+
+function heartBurst() {
+
+  for(let i = 0; i < 45; i++) {
+
+    setTimeout(() => {
+
+      const heart = document.createElement("div");
+
+      heart.innerText = "❤️";
+
+      heart.style.position = "fixed";
+      heart.style.left = "50%";
+      heart.style.top = "50%";
+      heart.style.zIndex = "100";
+      heart.style.fontSize =
+        (15 + Math.random() * 25) + "px";
+
+      document.body.appendChild(heart);
+
+      const x =
+        (Math.random() - .5) * 500;
+
+      const y =
+        (Math.random() - .5) * 650;
+
+      heart.animate(
+        [
+          {
+            transform:
+              "translate(-50%,-50%) scale(.2)",
+            opacity: 1
+          },
+          {
+            transform:
+              `translate(
+                calc(-50% + ${x}px),
+                calc(-50% + ${y}px)
+              ) scale(1.5)`,
+            opacity: 0
+          }
+        ],
+        {
+          duration: 1300,
+          easing: "cubic-bezier(.1,.7,.2,1)"
+        }
+      );
+
+      setTimeout(
+        () => heart.remove(),
+        1400
+      );
+
+    }, i * 25);
+  }
+}
+
+</script>
+
+</body>
+</html>
